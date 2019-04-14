@@ -17,8 +17,10 @@ RSpec.describe User, type: :model do
   end
 
   context "同名の account が存在するとき" do
-    it "エラーする" do
+    before do
       create(:user, account: "account")
+    end
+    it "エラーする" do
       user = build(:user, account: "account")
       user.valid?
       expect(user.errors.messages[:account]).to include "has already been taken"
